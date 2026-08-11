@@ -348,7 +348,7 @@ else: {
   return DDOT;
 }
 
-[={}:;,.()+*/%<>~\[\]?!\|&-] {
+[={}:;,.()+*/%<>~\[\]?!\|&-^] {
   return yytext[0];
 }
 
@@ -393,6 +393,10 @@ else: {
 <CCOMM>\/\*	cf_error("Comment nesting not supported");
 <CCOMM><<EOF>>	cf_error("Unterminated comment");
 <CCOMM>.
+
+\>\>   return SAR;
+\>\>\> return SHR;
+\<\<   return SHL;
 
 \!\= return NEQ;
 \!\~ return NMA;
