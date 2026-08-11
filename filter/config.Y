@@ -946,6 +946,10 @@ term:
  | term '/' term	{ $$ = f_new_inst(FI_DIVIDE, $1, $3); }
  | term '&' term	{ $$ = f_new_inst(FI_BITAND, $1, $3); }
  | term '|' term	{ $$ = f_new_inst(FI_BITOR, $1, $3); }
+ | term '^' term	{ $$ = f_new_inst(FI_BITXOR, $1, $3); }
+ | term SHL term	{ $$ = f_new_inst(FI_BITSHL, $1, $3); }
+ | term SAR term	{ $$ = f_new_inst(FI_BITSAR, $1, $3); }
+ | term SHR term	{ $$ = f_new_inst(FI_BITSHR, $1, $3); }
  | term AND term	{ $$ = f_new_inst(FI_AND, $1, $3); }
  | term OR  term	{ $$ = f_new_inst(FI_OR, $1, $3); }
  | term '=' term	{ $$ = f_new_inst(FI_EQ, $1, $3); }
@@ -956,7 +960,9 @@ term:
  | term GEQ term	{ $$ = f_new_inst(FI_LTE, $3, $1); }
  | term '~' term	{ $$ = f_new_inst(FI_MATCH, $1, $3); }
  | term NMA term	{ $$ = f_new_inst(FI_NOT_MATCH, $1, $3); }
+ | '-' term	%prec NEG	{ $$ = f_new_inst(FI_NEG, $2); }
  | '!' term		{ $$ = f_new_inst(FI_NOT, $2); }
+ | '~' term	%prec BITNOT	{ $$ = f_new_inst(FI_BITNOT, $2); }
  | DEFINED '(' term ')' { $$ = f_new_inst(FI_DEFINED, $3); }
 
  | constant { $$ = $1; }
@@ -967,9 +973,9 @@ term:
  | term_dot_method
 
  | '+' EMPTY '+' { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_PATH)); }
- | '-' EMPTY '-' { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_CLIST)); }
- | '-' '-' EMPTY '-' '-' { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_ECLIST)); }
- | '-' '-' '-' EMPTY '-' '-' '-' { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_LCLIST)); }
+ | '-' EMPTY '-' %prec LEGACY_EMPTY { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_CLIST)); }
+ | '-' '-' EMPTY '-' '-' %prec LEGACY_EMPTY { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_ECLIST)); }
+ | '-' '-' '-' EMPTY '-' '-' '-' %prec LEGACY_EMPTY { $$ = f_new_inst(FI_CONSTANT, f_get_empty(T_LCLIST)); }
 
  | PREPEND '(' term ',' term ')' { $$ = f_dispatch_method_x("prepend", $3->type, $3, $5); }
  | APPEND '(' term ',' term ')' { $$ = f_dispatch_method_x("append", $3->type, $3, $5); }

@@ -311,6 +311,26 @@
     ARG(2,T_INT);
     RESULT(T_INT, i, v1.val.i & v2.val.i);
   }
+  INST(FI_BITXOR, 2, 1) {
+    ARG(1,T_INT);
+    ARG(2,T_INT);
+    RESULT(T_INT, i, v1.val.i ^ v2.val.i);
+  }
+  INST(FI_BITSHL, 2, 1) {
+    ARG(1,T_INT);
+    ARG(2,T_INT);
+    RESULT(T_INT, i, v1.val.i << v2.val.i);
+  }
+  INST(FI_BITSAR, 2, 1) {
+    ARG(1,T_INT);
+    ARG(2,T_INT);
+    RESULT(T_INT, i, ((int)(v1.val.i)) >> v2.val.i);
+  }
+  INST(FI_BITSHR, 2, 1) {
+    ARG(1,T_INT);
+    ARG(2,T_INT);
+    RESULT(T_INT, i, ((unsigned int)(v1.val.i)) >> v2.val.i);
+  }
   INST(FI_AND, 1, 1) {
     ARG(1,T_BOOL);
     ARG_TYPE_STATIC(2,T_BOOL);
@@ -475,9 +495,19 @@
     RESULT(T_BOOL, i, (i != 1));
   }
 
+  INST(FI_NEG, 1, 1) {
+    ARG(1,T_INT);
+    RESULT(T_INT, i, -v1.val.i);
+  }
+
   INST(FI_NOT, 1, 1) {
     ARG(1,T_BOOL);
     RESULT(T_BOOL, i, !v1.val.i);
+  }
+
+  INST(FI_BITNOT, 1, 1) {
+    ARG(1,T_INT);
+    RESULT(T_INT, i, ~v1.val.i);
   }
 
   INST(FI_MATCH, 2, 1) {

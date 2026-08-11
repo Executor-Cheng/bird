@@ -168,12 +168,16 @@ CF_DECLS
 %type <v> conf_expr bytestring_expr text_or_ipa bytestring_or_text
 
 %nonassoc PREFIX_DUMMY
+%nonassoc LEGACY_EMPTY
 %left AND OR
 %nonassoc '=' '<' '>' '~' GEQ LEQ NEQ NMA IMP PO PC
-%left '|' '&'
+%left '|' '^' '&'
+%left SHR SHL SAR
 %left '+' '-' PP
 %left '*' '/' '%'
+%nonassoc BITNOT
 %left '!'
+%nonassoc NEG
 %nonassoc '.'
 
 %start config
