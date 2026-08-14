@@ -301,6 +301,12 @@
     if (v2.val.i == 0) runtime( "Mother told me not to divide by 0" );
     RESULT(T_INT, i, v1.val.i / v2.val.i);
   }
+  INST(FI_MOD, 2, 1) {
+    ARG(1,T_INT);
+    ARG(2,T_INT);
+    if (v2.val.i == 0) runtime( "Mother told me not to mod by 0" );
+    RESULT(T_INT, i, v1.val.i % v2.val.i);
+  }
   INST(FI_BITOR, 2, 1) {
     ARG(1,T_INT);
     ARG(2,T_INT);

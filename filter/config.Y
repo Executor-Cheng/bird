@@ -944,6 +944,7 @@ term:
  | term '-' term	{ $$ = f_new_inst(FI_SUBTRACT, $1, $3); }
  | term '*' term	{ $$ = f_new_inst(FI_MULTIPLY, $1, $3); }
  | term '/' term	{ $$ = f_new_inst(FI_DIVIDE, $1, $3); }
+ | term '%' term	{ $$ = f_new_inst(FI_MOD, $1, $3); }
  | term '&' term	{ $$ = f_new_inst(FI_BITAND, $1, $3); }
  | term '|' term	{ $$ = f_new_inst(FI_BITOR, $1, $3); }
  | term '^' term	{ $$ = f_new_inst(FI_BITXOR, $1, $3); }
