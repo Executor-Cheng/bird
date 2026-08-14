@@ -169,9 +169,12 @@ CF_DECLS
 
 %nonassoc PREFIX_DUMMY
 %nonassoc LEGACY_EMPTY
-%left AND OR
+%left OR
+%left AND
 %nonassoc '=' '<' '>' '~' GEQ LEQ NEQ NMA IMP PO PC
-%left '|' '^' '&'
+%left '|'
+%left '^'
+%left '&'
 %left SHR SHL SAR
 %left '+' '-' PP
 %left '*' '/' '%'
